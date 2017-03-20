@@ -1,5 +1,5 @@
-# Echinopsis
+﻿# Echinopsis
 
 Программа оценки ЭМС компактно размещенных РЭС
 
-![alt text](figures/img.png)
+![alt text](images/1.png)

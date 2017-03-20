@@ -1,0 +1,285 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace kyrs
+{
+    public partial class Form1 : Form
+    {
+       
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        public double fact(double f)
+        {
+            double result = 1;
+            if (f == 1) return 1;
+            if (f == 0) return 1;
+            result = fact(f - 1) * f;
+            return result;
+        }
+       
+        private void button1_Click(object sender, EventArgs e)
+        {
+           
+            double x1, x2, x3,x4, x;
+
+            if (!radioButton1.Checked & !radioButton2.Checked)
+            {
+                MessageBox.Show("Введите все исходные данные, необходимые для расчета.");
+            }
+            else
+            {
+
+
+                if (radioButton1.Checked)
+                {
+                    if (textBox1.Text != "" && textBox2.Text != "" &&
+                       textBox3.Text != "" && textBox4.Text != "")
+                    {
+                        label11.Text = "";
+
+                        double u = Convert.ToInt32(textBox1.Text);
+                        double u_porog = Convert.ToInt32(textBox2.Text);
+                        double b = Convert.ToInt32(textBox3.Text);
+                        double s = Convert.ToInt32(textBox4.Text);
+
+                        double z1 = Math.Pow(2, b);
+                        double z2 = Math.Pow(2, (b + 2 * 1));
+                        double z3 = Math.Pow(2, (b + 2 * 2));
+                        double z4 = Math.Pow(2, (b + 2 * 3));
+
+                        double w1 = Math.Pow(u, b);
+                        double w2 = Math.Pow(u, (b + 2 * 1));
+                        double w3 = Math.Pow(u, (b + 2 * 2));
+                        double w4 = Math.Pow(u, (b + 2 * 3));
+
+                        int[] k = new int[8];
+                        k[0] = 0; k[1] = 0; k[2] = 0; k[3] = 0; k[4] = 0; k[5] = 0; k[6] = 0; k[7] = 0;
+
+                        int n = Convert.ToInt32(textBox4.Text);
+                        k[n] = 1;
+
+                        if (b > s)
+                        {
+                            label11.Text = " Сумма коэфициентов b1 и b2 не должна превышать\nзначение порядока интермодуляции.";
+                        }
+                        else
+                        {
+                            double a2 = b % 2;
+                            double a1 = s % 2;
+                            if ((a1 != 0 & a2 == 0) | (a1 == 0 & a2 != 0))
+                            {
+                                label11.Text = " Порядок КЧ и порядок интермодуляции должны быть\nчислами одинаковой четности.";
+                            }
+                            else
+                            {
+                                if (((s - b) / 2) == 3)
+                                {
+                                    x1 = (k[Convert.ToInt32(b)] / (z1)) * fact(b) * (w1 / (fact(b) * 1));
+                                    x2 = (k[Convert.ToInt32(b + 2)] / (z2)) * fact(2 + b) * (w2 / (fact(b + 1) * 1));
+                                    x3 = (k[Convert.ToInt32(b + 4)] / (z3)) * fact(4 + b) * (w3 / (fact(b + 2) * 2));
+                                    x4 = (k[Convert.ToInt32(b + 6)] / (z4)) * fact(6 + b) * (w4 / (fact(b + 3) * 6));
+                                    x = 2 * (x1 + x2 + x3 + x4);
+                                    MessageBox.Show(Convert.ToString(x));
+                                }
+
+                                if (((s - b) / 2) == 2)
+                                {
+                                    x1 = (k[Convert.ToInt32(b)] / (z1)) * fact(b) * (w1 / (fact(b) * 1));
+                                    x2 = (k[Convert.ToInt32(b + 2)] / (z2)) * fact(2 + b) * (w2 / (fact(b + 1) * 1));
+                                    x3 = (k[Convert.ToInt32(b + 4)] / (z3)) * fact(4 + b) * (w3 / (fact(b + 2) * 2));
+                                    x = 2 * (x1 + x2 + x3);
+                                    MessageBox.Show(Convert.ToString(x));
+                                }
+
+                                if (((s - b) / 2) == 1)
+                                {
+                                    x1 = (k[Convert.ToInt32(b)] / (z1)) * fact(b) * (w1 / (fact(b) * 1));
+                                    x2 = (k[Convert.ToInt32(b + 2)] / (z2)) * fact(2 + b) * (w2 / (fact(b + 1) * 1));
+                                    x = 2 * (x1 + x2);
+                                    MessageBox.Show(Convert.ToString(x));
+                                }
+
+                                if (((s - b) / 2) == 0)
+                                {
+                                    x1 = (k[Convert.ToInt32(b)] / (z1)) * fact(b) * (w1 / (fact(b) * 1));
+                                    x = 2 * (x1);
+                                    MessageBox.Show(Convert.ToString(x));
+                                }
+                            }
+                        }
+                    }
+                    else
+                        MessageBox.Show("Введите все исходные данные, необходимые для расчета.");
+                }
+            }
+
+            if (radioButton2.Checked)
+            {
+                if (textBox1.Text != "" && textBox2.Text != "" &&
+                   textBox3.Text != "" && textBox4.Text != "" && textBox5.Text != "")
+                {
+                    label11.Text = "";
+
+                    double u1 = Convert.ToInt32(textBox1.Text);
+                    double u2 = Convert.ToInt32(textBox5.Text);
+                    double u_porog = Convert.ToInt32(textBox2.Text);
+                    double b1 = Convert.ToInt32(textBox3.Text);
+                    double b2 = Convert.ToInt32(textBox6.Text);
+                    double s = Convert.ToInt32(textBox4.Text);
+                    double R1, R2, R3, R4, R;
+                    double m=(s-(b1+b2))/2;
+                    double p = Math.Pow(u1, b1) * Math.Pow(u2, b2) / Math.Pow(2, (b1 + b2 - 1));
+                    double z1, z2, z3, z4, z;
+
+                    int[] k = new int[8];
+                    k[0] = 0; k[1] = 0; k[2] = 0; k[3] = 0; k[4] = 0; k[5] = 0; k[6] = 0; k[7] = 0;
+                    double u=Math.Pow((u1/u2),2);
+
+                    int n = Convert.ToInt32(textBox4.Text);
+                    k[n] = 1;
+
+                    if ((b1 + b2) > s)
+                    {
+                        label11.Text = " Сумма коэфициентов b1 и b2 не должна превышать\nзначение порядока интермодуляции.";
+                    }
+                    else
+                    {
+                        double a2 = (b1+b2) % 2;
+                        double a1 = s % 2;
+                        if ((a1 != 0 & a2 == 0) | (a1 == 0 & a2 != 0)) 
+                        {                        
+                            label11.Text = " Порядок КЧ и порядок интермодуляции должны быть\nчислами одинаковой четности.";
+                        }
+                        else
+                        {
+                            if (m == 3)
+                            {
+                                double i_ = 0;
+                                R1 = Math.Pow(u, i_) / (fact(i_ + b1) * fact(m + b2 - i_) * fact(i_) * fact(m - i_));
+                                i_ = i_ + 1;
+                                R2 = R1 + (Math.Pow(u, i_) / (fact(i_ + b1) * fact(m + b2 - i_) * fact(i_) * fact(m - i_)));
+                                i_ = i_ + 1;
+                                R3 = R2 + (Math.Pow(u, i_) / (fact(i_ + b1) * fact(m + b2 - i_) * fact(i_) * fact(m - i_)));
+                                i_ = i_ + 1;
+                                R4 = R3 + (Math.Pow(u, i_) / (fact(i_ + b1) * fact(m + b2 - i_) * fact(i_) * fact(m - i_)));
+                                if (m == 3)
+                                {
+                                    double y = 0;
+                                    z1 = (Math.Pow((u2 / 2), 2 * y) * fact(2 * y + b1 + b2) * k[Convert.ToInt32(2 * y + b1 + b2)] * R1);
+                                    y = y + 1;
+                                    z2 = (Math.Pow((u2 / 2), 2 * y) * fact(2 * y + b1 + b2) * k[Convert.ToInt32(2 * y + b1 + b2)] * R2);
+                                    y = y + 1;
+                                    z3 = (Math.Pow((u2 / 2), 2 * y) * fact(2 * y + b1 + b2) * k[Convert.ToInt32(2 * y + b1 + b2)] * R3);
+                                    y = y + 1;
+                                    z4 = (Math.Pow((u2 / 2), 2 * y) * fact(2 * y + b1 + b2) * k[Convert.ToInt32(2 * y + b1 + b2)] * R4);
+                                    z = p * (z1 + z2 + z3 + z4);
+                                    MessageBox.Show(Convert.ToString(z));
+
+                                }
+                            }
+                            if (m == 2)
+                            {
+                                double i_ = 0;
+                                R1 = Math.Pow(u, i_) / (fact(i_ + b1) * fact(m + b2 - i_) * fact(i_) * fact(m - i_));
+                                i_ = i_ + 1;
+                                R2 = R1 + (Math.Pow(u, i_) / (fact(i_ + b1) * fact(m + b2 - i_) * fact(i_) * fact(m - i_)));
+                                i_ = i_ + 1;
+                                R3 = R2 + (Math.Pow(u, i_) / (fact(i_ + b1) * fact(m + b2 - i_) * fact(i_) * fact(m - i_)));
+                                if (m == 2)
+                                {
+                                    double y = 0;
+                                    z1 = (Math.Pow((u2 / 2), 2 * y) * fact(2 * y + b1 + b2) * k[Convert.ToInt32(2 * y + b1 + b2)] * R1);
+                                    y = y + 1;
+                                    z2 = (Math.Pow((u2 / 2), 2 * y) * fact(2 * y + b1 + b2) * k[Convert.ToInt32(2 * y + b1 + b2)] * R2);
+                                    y = y + 1;
+                                    z3 = (Math.Pow((u2 / 2), 2 * y) * fact(2 * y + b1 + b2) * k[Convert.ToInt32(2 * y + b1 + b2)] * R3);
+                                    z = p * (z1 + z2 + z3);
+                                    MessageBox.Show(Convert.ToString(z));
+
+                                }
+                            }
+                            if (m == 1)
+                            {
+                                double i_ = 0;
+                                R1 = Math.Pow(u, i_) / (fact(i_ + b1) * fact(m + b2 - i_) * fact(i_) * fact(m - i_));
+                                i_ = i_ + 1;
+                                R2 = R1 + (Math.Pow(u, i_) / (fact(i_ + b1) * fact(m + b2 - i_) * fact(i_) * fact(m - i_)));
+                                if (m == 1)
+                                {
+                                    double y = 0;
+                                    z1 = (Math.Pow((u2 / 2), 2 * y) * fact(2 * y + b1 + b2) * k[Convert.ToInt32(2 * y + b1 + b2)] * R1);
+                                    y = y + 1;
+                                    z2 = (Math.Pow((u2 / 2), 2 * y) * fact(2 * y + b1 + b2) * k[Convert.ToInt32(2 * y + b1 + b2)] * R2);
+                                    y = y + 1;
+                                    z = p * (z1 + z2);
+                                    MessageBox.Show(Convert.ToString(z));
+                                }
+                            }
+                            if (m == 0)
+                            {
+                                double i_ = 0;
+                                R1 = Math.Pow(u, i_) / (fact(i_ + b1) * fact(m + b2 - i_) * fact(i_) * fact(m - i_));
+                                if (m == 0)
+                                {
+                                    double y = 0;
+                                    z1 = (Math.Pow((u2 / 2), 2 * y) * fact(2 * y + b1 + b2) * k[Convert.ToInt32(2 * y + b1 + b2)] * R1);
+                                    y = y + 1;
+                                    z = p * (z1);
+                                    MessageBox.Show(Convert.ToString(z));
+
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                    MessageBox.Show("Введите все исходные данные, необходимые для расчета.");
+            }
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+            textBox4.Text = "";
+            textBox5.Text = "";
+            textBox6.Text = "";
+            label11.Text = "";
+        }
+
+        
+
+        
+        private void button1_MouseMove(object sender, MouseEventArgs e)
+        {
+            button1.BackColor = Color.AliceBlue;
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            button1.BackColor = Color.Beige; 
+        }
+
+        private void button2_MouseLeave(object sender, EventArgs e)
+        {
+            button2.BackColor = Color.Beige;
+        }
+
+        private void button2_MouseMove(object sender, MouseEventArgs e)
+        {
+            button2.BackColor = Color.AliceBlue; 
+        }
+
+        
+
+       
+    }
+}
